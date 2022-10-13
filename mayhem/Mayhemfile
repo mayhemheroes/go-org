@@ -5,7 +5,7 @@ project: go-org
 target: go-org-org-fuzz
 
 # Base image to run the binary in.
-image: ghcr.io/lotdeef/go-org:latest
+# image: ghcr.io/lotdeef/go-org:latest
 
 # List of commands used to test the target
 cmds:
