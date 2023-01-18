@@ -1,0 +1,4 @@
+project: go-org
+target: go-org-org-fuzz
+cmds:
+  - cmd: ./parser-fuzz.libfuzzer
