@@ -1,13 +1,14 @@
-FROM fuzzers/go-fuzz:1.2.0 as builder
+FROM golang:1.21 AS builder
 
-ARG project='go-org'
-ARG fuzzTargetPath='org'
-ARG fuzzTarget='parser-fuzz'
+ENV GOTOOLCHAIN=auto
 
-ADD . ${project}
-WORKDIR ${project}
-RUN GO_ENABLED=0 go-fuzz-build -libfuzzer -o /${fuzzTarget}.a ./${fuzzTargetPath}
-RUN clang -fsanitize=fuzzer /${fuzzTarget}.a -o /${fuzzTarget}.libfuzzer
+ARG project=go-org
+ARG fuzzTarget=parser-fuzz
 
-FROM ubuntu:20.04
-COPY --from=builder /parser-fuzz.libfuzzer /
+WORKDIR /src
+COPY . .
+
+RUN go test -c -fuzz=FuzzParser -o /${fuzzTarget} ./org
+
+FROM ubuntu:22.04
+COPY --from=builder /parser-fuzz /
