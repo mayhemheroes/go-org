@@ -1,0 +1,8 @@
+# Preserves the pre-port target name (go-org-org-fuzz) for corpus/defect continuity.
+project: go-org
+target: go-org-org-fuzz
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/go-org-org-fuzz/testsuite
+cmds:
+  - cmd: /mayhem/go-org-org-fuzz
